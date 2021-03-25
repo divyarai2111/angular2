@@ -1,7 +1,8 @@
 <p>login User!</p>
 <form [formGroup]="loginForm">
     <div>
-        <input type="text" formControlName="username" placeholder="Enter UserName">
+        <input class="username" matInput [formControl]='username'>
+        <!-- <input type="text" formControlName="username" placeholder="Enter UserName"> -->
         <small>
             <!-- {{getUserNameErrorMessage()}} -->
         </small>
@@ -10,13 +11,15 @@
     <br>
     <br>
     <div>
-        <input type="text" formControlName="password" placeholder="Enter password">
+        <input class="password" matInput [formControl]='password'>
+        <!-- <input type="text" formControlName="password" placeholder="Enter password"> -->
         <!-- {{getPasswordErrorMessage()}} -->
     </div>
     <br>
     <br>
     <div>
-        <button (click)="loginSubmit()">login</button>
+        <button type="submit" mat-button (click)="loginSubmit()">Submit</button>
+        <!-- <button (click)="loginSubmit()">login</button> -->
     </div>
 
 </form>
