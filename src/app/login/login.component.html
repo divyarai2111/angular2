@@ -1,0 +1,26 @@
+<p>login User!</p>
+<form [formGroup]="loginForm">
+    <div>
+        <input type="text" formControlName="username" placeholder="Enter UserName">
+        <small>
+            <!-- {{getUserNameErrorMessage()}} -->
+        </small>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div>
+        <input type="text" formControlName="password" placeholder="Enter password">
+        <!-- {{getPasswordErrorMessage()}} -->
+    </div>
+    <br>
+    <br>
+    <div>
+        <button (click)="loginSubmit()">login</button>
+    </div>
+
+</form>
+
+<div style="text-align:center">
+  <label class="error-message">{{ submitMessage }}</label>
+</div>
