@@ -22,18 +22,19 @@ export class LoginComponent {
 
   }
 
-  loginForm = new FormGroup({
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required])
-  })
+  // loginForm = new FormGroup({
+  //   username: new FormControl('', [Validators.required]),
+  //   password: new FormControl('', [Validators.required])
+  // })
 
   loginSubmit() {
 
 
-    if (this.loginForm.valid) {
-      this.userModel.username = this.loginForm.value["username"]
-      this.userModel.password = this.loginForm.value["password"]
+    // if (this.loginForm.valid) {
+      this.userModel.username = this.username.value
+      this.userModel.password = this.password.value
 
+      console.log(this.userModel)
       this.authenticationService.authenticateUser(this.userModel).subscribe((data) => {
         console.log(data);
         this.authenticationService.setBearerToken(data.token)
@@ -48,7 +49,7 @@ export class LoginComponent {
           this.submitMessage = 'Http failure response for http://localhost:3000/auth/v1: 404 Not Found';
         }
       })
-    }
+    // }
   }
 
 

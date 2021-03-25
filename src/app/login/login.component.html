@@ -1,6 +1,7 @@
 <p>login User!</p>
-<form [formGroup]="loginForm">
+<form >
     <div>
+        Username:
         <input class="username" matInput [formControl]='username'>
         <!-- <input type="text" formControlName="username" placeholder="Enter UserName"> -->
         <small>
@@ -11,6 +12,7 @@
     <br>
     <br>
     <div>
+        Password:
         <input class="password" matInput [formControl]='password'>
         <!-- <input type="text" formControlName="password" placeholder="Enter password"> -->
         <!-- {{getPasswordErrorMessage()}} -->
