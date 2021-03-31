@@ -1,11 +1,11 @@
-<p>login User!</p>
+<!-- <p>login User!</p>
 <form >
     <div>
         Username:
         <input class="username" matInput [formControl]='username'>
-        <!-- <input type="text" formControlName="username" placeholder="Enter UserName"> -->
+      
         <small>
-            <!-- {{getUserNameErrorMessage()}} -->
+     
         </small>
     </div>
     <br>
@@ -14,18 +14,44 @@
     <div>
         Password:
         <input class="password" matInput [formControl]='password'>
-        <!-- <input type="text" formControlName="password" placeholder="Enter password"> -->
-        <!-- {{getPasswordErrorMessage()}} -->
+      
     </div>
     <br>
     <br>
     <div>
         <button type="submit" mat-button (click)="loginSubmit()">Submit</button>
-        <!-- <button (click)="loginSubmit()">login</button> -->
+        
     </div>
 
 </form>
 
 <div style="text-align:center">
   <label class="error-message">{{ submitMessage }}</label>
-</div>
+</div> -->
+
+
+    
+    <div class="row justify-content-start">
+      <div class="col-4">
+        <label>Username:
+          <input class="username" matInput [formControl]='username'>
+        </label>
+      </div>
+    </div>
+    <div class="row justify-content-start">
+      <div class="col-4">
+        <label>Password:
+          <input class="password" matInput type = 'password' [formControl]='password'>
+        </label>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <button class="btn btn-primary" (click)="loginSubmit()">Submit</button>
+      </div>
+    </div>
+  
+ 
+  <div style="text-align:center">
+    <label class="error-message">{{ submitMessage }}</label>
+  </div>

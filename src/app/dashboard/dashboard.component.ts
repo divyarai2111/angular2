@@ -8,78 +8,33 @@ import { NotesService } from '../services/notes.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit{
-    errMessage: string;
-    notes: Note = new Note();
-    noteList: Array<Note>;
-    constructor(private noteService: NotesService) {
+  errMessage: string;
+  public note: Note;
+  public notes: Note[];
 
+  constructor(private notesService: NotesService) {
+    this.note = new Note();
+    this.notes = [];
+    this.errMessage = '';
+  }
+
+  ngOnInit() {
+    this.notesService.getNotes().subscribe(
+      data => this.notes = data,
+      err => { this.errMessage = 'Http failure response for http://localhost:3000/notes: 404 Not Found'; }
+    );
+  }
+
+  addNote() {
+    if (!!this.note.text && !!this.note.title) {
+      this.notes.push(this.note);
+      this.notesService.addNote(this.note).subscribe(
+        data => { }, err => { this.errMessage = 'Http failure response for http://localhost:3000/notes: 404 Not Found'; });
+      this.note = new Note();
+    } else {
+      this.errMessage = 'Title and Text both are required fields';
     }
-    step = 0;
-
-    setStep(index: number) {
-      this.step = index;
-    }
-
-    nextStep() {
-      this.step++;
-    }
-
-    prevStep() {
-      this.step--;
-    }
-
-    //function to add note
-    addNotes() {
-
-
-      if (!this.notes.title || !this.notes.text) {
-        this.errMessage = 'Title and Text both are required fields';
-        return;
-      }
-
-
-
-      this.noteService.addNote(this.notes).subscribe((response) => {
-        // alert("Note Saved in JSON Format")
-        if (response) {
-          this.noteList.push(this.notes)
-          this.getNotes()
-
-        }
-        else {
-          this.errMessage = "cannot add this notes"
-        }
-
-      }, error => {
-        this.errMessage = 'Http failure response for http://localhost:3000/notes: 404 Not Found'
-        return;
-      })
-
-      this.step++;
-
-    }
-
-
-
-    ngOnInit() {
-      this.getNotes()
-    }
-
-
-
-    getNotes() {
-      this.noteService.getNotes().subscribe((response) => {
-        // console.log(response.reverse())
-        if (response)
-          this.noteList = response.reverse()
-        else
-          this.errMessage = "Not able to retrieve notes"
-      }, error => {
-        console.log(error)
-        this.errMessage = 'Http failure response for http://localhost:3000/notes: 404 Not Found'
-        return;
-      })
-    }
+  }
 }
 
 

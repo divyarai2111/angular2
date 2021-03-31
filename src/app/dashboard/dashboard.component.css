@@ -3,3 +3,29 @@
     max-width: 500px;
     margin: 1%;
   }
+
+  .note-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.note-expansion-panel
+{
+    margin: 0% auto;
+    width: 70vw;
+}
+
+.note-mat-form-field{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.note-mat-card-list{
+    margin-top: 20vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

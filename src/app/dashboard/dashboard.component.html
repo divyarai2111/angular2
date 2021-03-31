@@ -1,57 +1,36 @@
 <!-- Label to display any error messages -->
-<label class="error-message">{{ errMessage }}</label>
+<div style="text-align:center">
+    <label class="error-message">{{ errMessage }}</label>
+</div>
 <!-- Expansion panel to add new notes -->
-
-
-<mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
-    <mat-expansion-panel-header>
-        <mat-panel-title>
-            Take a note
-        </mat-panel-title>
-    </mat-expansion-panel-header>
-
-    <mat-form-field>
-        <mat-label>Notes Title</mat-label>
-        <input matInput type="text" name="title"  [(ngModel)]="notes.title" placeholder="Enter Notes Title" />
-        <!-- <input matInput type="number" min="1"> -->
-    </mat-form-field>
-    <br><br>
-    <mat-form-field>
-        <mat-label>Notes Text</mat-label>
-        <textarea matInput name="text" [(ngModel)]="notes.text" placeholder="Enter Notes Text"></textarea>
-    </mat-form-field>
-
-    <!-- <input type="text" name ="noteTitle" placeholder="Enter Notes Title"/><br> -->
-
-    <mat-action-row>
-        <button mat-button color="warn" (click)="addNotes()">Done</button>
-        <button mat-button color="primary" (click)="nextStep()">End</button>
-    </mat-action-row>
-</mat-expansion-panel>
-
-
-
-
-
-
-
-<!-- Load and display the collection of notes from server as Material Cards with card title set to note title and card content set to note text  -->
-
-
-
-<div *ngIf="noteList && noteList.length">
-    <mat-card class="inline-block" *ngFor="let note of noteList">
-        <mat-card-header>
-         
-            <mat-card-title>{{note.title}}</mat-card-title>
-            
-          </mat-card-header>
-        <mat-card-content>
-            
-              {{note.text}}
-        
-        </mat-card-content>
-     
-    </mat-card>
+<div style="text-align:center">
+    <div class="note-container">
+        <mat-expansion-panel class="note-expansion-panel">
+            <mat-expansion-panel-header>
+                <mat-panel-title>Take a note</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="note-mat-form-field">
+                <mat-form-field>
+                    <input matInput name="title" placeholder="Enter Title" [(ngModel)]="note.title">
+                </mat-form-field>
+                <mat-form-field>
+                    <textarea matInput name="text" placeholder="Enter Description" [(ngModel)]="note.text"></textarea>
+                </mat-form-field>
+            </div>
+            <button mat-button (click)="addNote()">Done</button>
+        </mat-expansion-panel>
     </div>
-    
+    <div>
+    </div>
+
+    <div class="note-mat-card-list">
+        <mat-list *ngFor="let note of notes">
+            <mat-list-item>
+                <mat-card>
+                    <mat-card-title>{{note.title}}</mat-card-title>
+                    <mat-card-content>{{note.text}}</mat-card-content>
+                </mat-card>
+            </mat-list-item>
+        </mat-list>
+    </div>
+</div>

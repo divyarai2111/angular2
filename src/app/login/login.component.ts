@@ -11,64 +11,35 @@ import { User } from '../user';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  submitMessage: string;
+  loginUser: User;
   username = new FormControl();
   password = new FormControl();
-  userModel: User = new User();
-  submitMessage: string = ''
-  errMessage:string
-  constructor(private routerService: RouterService,
-    private authenticationService: AuthenticationService) {
-      localStorage.clear()
-
+  constructor(private routerService: RouterService, private authService: AuthenticationService) {
+    this.submitMessage = '';
+    this.loginUser = new User;
   }
 
-  // loginForm = new FormGroup({
-  //   username: new FormControl('', [Validators.required]),
-  //   password: new FormControl('', [Validators.required])
-  // })
+  ngOnInit(): void {
+  }
 
   loginSubmit() {
+    this.submitMessage = '';
+    this.loginUser.username = this.username.value;
+    this.loginUser.password = this.password.value;
 
-
-    // if (this.loginForm.valid) {
-      this.userModel.username = this.username.value
-      this.userModel.password = this.password.value
-
-      console.log(this.userModel)
-      this.authenticationService.authenticateUser(this.userModel).subscribe((data) => {
-        console.log(data);
-        this.authenticationService.setBearerToken(data.token)
-        // localStorage.setItem("token", data.token)
-        // this.router.navigate(["/dashboard"])
-        this.routerService.routeToDashboard()
-      }, (err) => {
+    this.authService.authenticateUser(this.loginUser).subscribe(
+      resp => {
+        this.authService.setBearerToken(resp['token']);
+        this.routerService.routeToDashboard();
+      }, err => {
         this.submitMessage = err.message;
         if (err.status === 403) {
-          this.submitMessage = err.error.message;
+          this.submitMessage = 'Unauthorized';
         } else {
           this.submitMessage = 'Http failure response for http://localhost:3000/auth/v1: 404 Not Found';
         }
-      })
-    // }
-  }
-
-
-  getUserNameErrorMessage() {
-    if (!this.userModel.username) {
-      return "Must enter UserName";
-    }
-    else {
-      return '';
-    }
-  }
-  getPasswordErrorMessage() {
-    if (!this.userModel.password) {
-
-      return "Must enter password";
-    }
-    else {
-
-      return '';
-    }
+      }
+    );
   }
 }
